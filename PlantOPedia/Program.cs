@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using PlantOPedia.Data;
+using PlantOPedia.Engine;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -19,6 +20,9 @@ builder.Services.AddCors(option =>
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<PlantdbContext>(opts => opts.UseSqlServer(configuration["ConnectionStrings:PlantDB"]));
 builder.Services.AddControllers();
+
+builder.Services.AddTransient<ILoginEngine, LoginEngine>();
+
 
 var app = builder.Build();
 

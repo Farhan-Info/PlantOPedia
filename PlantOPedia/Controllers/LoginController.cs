@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using System.Text;
 using PlantOPedia.Data;
 using Microsoft.EntityFrameworkCore;
+using PlantOPedia.Engine;
 
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -15,10 +16,12 @@ namespace PlantOPedia.Controllers
     [ApiController]
     public class LoginController : ControllerBase
     {
+        ILoginEngine _loginEngine;
         readonly PlantdbContext _context;
-        public LoginController(PlantdbContext context)
+        public LoginController(PlantdbContext context, ILoginEngine loginEngine)
         {
             _context = context;
+            _loginEngine = loginEngine;
         }
         // GET: api/<LoginController>
         [HttpGet]
@@ -39,28 +42,32 @@ namespace PlantOPedia.Controllers
         [HttpPost]
         public ActionResult Post([FromBody] LoginCredentials  login)
         {
-            var pass = login.Password;
-            const string Salt = "CGYzqeN4plZekNC88Umm1Q==";
-            byte[] bytesSalt = Encoding.ASCII.GetBytes(Salt);
+            //var pass = login.password;
+            //const string salt = "cgyzqen4plzeknc88umm1q==";
+            //byte[] bytessalt = encoding.ascii.getbytes(salt);
 
-            string hashedPassword = Convert.ToBase64String(KeyDerivation.Pbkdf2(
-            password: pass,
-            salt: bytesSalt,
-            prf: KeyDerivationPrf.HMACSHA256,
-            iterationCount: 100000,
-            numBytesRequested: 32));
+            //string hashedpassword = convert.tobase64string(keyderivation.pbkdf2(
+            //password: pass,
+            //salt: bytessalt,
+            //prf: keyderivationprf.hmacsha256,
+            //iterationcount: 100000,
+            //numbytesrequested: 32));
             //Console.WriteLine($"Hashed: {hashedPassword}");
 
-            var FindUser = _context.Users.Include(role => role.Role).FirstOrDefault(user => user.Email == login.Email && user.Password == hashedPassword);
-            if (FindUser != null)
-            {
-                return Ok(FindUser);
-            }
-            else
-            {
-                ErrorResponse errorResponse = new ErrorResponse() { Code = "400", Message = "Not Found" };
-                return NotFound(errorResponse);
-            }
+            //var FindUser = _context.Users.Include(role => role.Role).FirstOrDefault(user => user.Email == login.Email && user.Password == hashedPassword);
+            //if (FindUser != null)
+            //{
+            //    return Ok(FindUser);
+            //}
+            //else
+            //{
+            //    ErrorResponse errorResponse = new ErrorResponse() { Code = "400", Message = "Not Found" };
+            //    return NotFound(errorResponse);
+            //}
+            
+
+                return Ok(_loginEngine.CheckUser(login));
+            
         }
 
         // PUT api/<LoginController>/5

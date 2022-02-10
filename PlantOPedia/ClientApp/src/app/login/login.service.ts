@@ -20,6 +20,7 @@ export class LoginService {
   // userName: string = '';
 
   checkLogin(loginObj: any): Observable<IUser> {
+    console.log(loginObj);
     return this.http.post<IUser>(this.loginUrl, loginObj);
   }
 
