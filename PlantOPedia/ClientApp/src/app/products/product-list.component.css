@@ -1,0 +1,58 @@
+.card{
+    background-color: transparent ;
+    border: none;
+}
+.card .row .col .card{
+    background-color: white;
+    /* border: 1px solid rgba(0, 0, 0, 0.829); */
+    box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.829);
+}
+.col .card{
+    overflow: hidden;
+ }
+ .col .card img{
+     height: 200px !important;
+     width: 100% !important;
+ }
+ .col .card{
+     height: 100%;
+ }
+ .head-product{
+     margin-bottom: 20px;
+ }
+.input-box{
+    width: 40%;
+    overflow: hidden;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 50px !important;
+    padding: 0 5px;
+}
+.input-box .form-control:focus {
+    border-color: #fff;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+.input-box span{
+    background-color: transparent;
+}
+.input-box input{
+    border: none;
+    outline: none;
+}
+
+
+
+ .head-product .add-product{
+     padding: 3px 5px;
+     font-size: large;
+     border: 2px solid black;
+     border-radius: 10px;
+     cursor: pointer;
+ }
+ .head-product .add-product:hover{
+     color: white;
+     background-color: gray;
+     /* border: 2px solid white; */
+ }
+ 
