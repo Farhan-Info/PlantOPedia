@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PlantOPedia.Data;
+using PlantOPedia.Engine;
 using PlantOPedia.Models;
 using System.Linq;
 
@@ -12,10 +13,12 @@ namespace PlantOPedia.Controllers
     [ApiController]
     public class OrderController : ControllerBase
     {
+        readonly IOrderEngine _OrderEngine;
         readonly PlantdbContext _context;
-        public OrderController(PlantdbContext context)
+        public OrderController(PlantdbContext context,IOrderEngine OrderEngine)
         {
             _context = context;
+            _OrderEngine = OrderEngine;
         }
         // GET: api/<OrderController>
         [HttpGet]
@@ -23,10 +26,12 @@ namespace PlantOPedia.Controllers
         {
            
 
-            return Ok(_context.Orders.Include(order => order.Product)
-                                      .Include(order => order.Users)
-                                      .Where(order => order.IsDeleted == false)
-                                      .ToList());
+            //return Ok(_context.Orders.Include(order => order.Product)
+            //                          .Include(order => order.Users)
+            //                          .Where(order => order.IsDeleted == false)
+            //                          .ToList());
+
+            return Ok(_OrderEngine.GetAll());
 
         }
 
@@ -43,14 +48,15 @@ namespace PlantOPedia.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] List<Order> orders)
         {
-            foreach (var order in orders)
-            {
-                order.OrderDate = order.OrderDate.ToLocalTime();
-            }
-            _context.Orders.AddRange(orders);
-            _context.SaveChanges();
-            SuccessResponse successResponse = new SuccessResponse() { Code = "200", Message = "Success" };
-            return Ok(successResponse);
+            //foreach (var order in orders)
+            //{
+            //    order.OrderDate = order.OrderDate.ToLocalTime();
+            //}
+            //_context.Orders.AddRange(orders);
+            //_context.SaveChanges();
+            //SuccessResponse successResponse = new SuccessResponse() { Code = "200", Message = "Success" };
+            //return Ok(successResponse);
+            return Ok(_OrderEngine.AddOrder(orders));
         }
 
         // PUT api/<OrderController>/5            
@@ -63,29 +69,30 @@ namespace PlantOPedia.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(Guid id)
         {
-            var exists = _context.Orders.Find(id);
-            {
-                //hard delete
-                /*_context.Orders.Remove(new Order() { OrderId = id});
-                _context.SaveChanges();
+            //var exists = _context.Orders.Find(id);
+            //{
+            //    //hard delete
+            //    /*_context.Orders.Remove(new Order() { OrderId = id});
+            //    _context.SaveChanges();
 
-                SuccessResponse successResponse = new SuccessResponse() { Code = "200", Message = "Success" };
-                return Ok(successResponse);*/
+            //    SuccessResponse successResponse = new SuccessResponse() { Code = "200", Message = "Success" };
+            //    return Ok(successResponse);*/
                 
-                if (exists != null)
-                {
-                    exists.IsDeleted = true;
-                    _context.Orders.Update(exists);
-                    _context.SaveChanges();
-                }
-                else
-                {
-                    ErrorResponse errorResponse = new ErrorResponse() { Code = "404", Message = "Not Found" };
-                    return NotFound(errorResponse);
-                }
-                SuccessResponse successResponse = new SuccessResponse() { Code = "200", Message = "Success" };
-                return Ok(successResponse);
-            }
+            //    if (exists != null)
+            //    {
+            //        exists.IsDeleted = true;
+            //        _context.Orders.Update(exists);
+            //        _context.SaveChanges();
+            //    }
+            //    else
+            //    {
+            //        ErrorResponse errorResponse = new ErrorResponse() { Code = "404", Message = "Not Found" };
+            //        return NotFound(errorResponse);
+            //    }
+            //    SuccessResponse successResponse = new SuccessResponse() { Code = "200", Message = "Success" };
+            //    return Ok(successResponse);
+            //}
+            return Ok(_OrderEngine.Delete(id));
         }
     }
 }

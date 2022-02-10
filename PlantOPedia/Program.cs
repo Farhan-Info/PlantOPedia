@@ -23,6 +23,8 @@ builder.Services.AddControllers();
 
 builder.Services.AddTransient<ILoginEngine, LoginEngine>();
 
+builder.Services.AddTransient<IOrderEngine, OrderEngine>();
+
 
 var app = builder.Build();
 
