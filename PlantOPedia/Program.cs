@@ -22,6 +22,7 @@ builder.Services.AddDbContext<PlantdbContext>(opts => opts.UseSqlServer(configur
 builder.Services.AddControllers();
 
 builder.Services.AddTransient<ILoginEngine, LoginEngine>();
+builder.Services.AddTransient<IProductEngine, ProductEngine>();
 
 builder.Services.AddTransient<IOrderEngine, OrderEngine>();
 

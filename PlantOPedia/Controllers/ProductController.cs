@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PlantOPedia.Data;
+using PlantOPedia.Engine;
 using PlantOPedia.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -11,25 +12,26 @@ namespace PlantOPedia.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
+        readonly IProductEngine _productEngine;
         readonly PlantdbContext _context;
-        public ProductController(PlantdbContext context)
+        public ProductController(PlantdbContext context, IProductEngine productEngine)
         {
             _context = context;
+            _productEngine = productEngine;
+            _productEngine = productEngine;
         }
         // GET: api/<ProductController>
         [HttpGet]
         public IActionResult GetAll()
         {
-            return Ok(_context.Products.Include(p => p.ProductType).
-                                    ThenInclude(c => c.Category).Where(product => product.IsDeleted == false).ToList());
-        }
+            return Ok(_productEngine.GetAllProduct());
+        }                         
 
         // GET api/<ProductController>/5
         [HttpGet("{id}")]
         public IActionResult Get(Guid id)
         {
-            return Ok(_context.Products.Include(p => p.ProductType).
-                                    ThenInclude(c => c.Category).FirstOrDefault(product => product.ProductId == id && product.IsDeleted == false)); 
+            return Ok(_productEngine.GetProduct(id)); 
                 
         }
 
@@ -37,10 +39,10 @@ namespace PlantOPedia.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] Product product)
         {
-            _context.Products.Add(product);
-            _context.SaveChanges();
-            SuccessResponse successResponse = new SuccessResponse() { Code = "200", Message = "Success" };
-            return Ok(successResponse);
+            //_context.Products.Add(product);
+            //_context.SaveChanges();
+            //SuccessResponse successResponse = new SuccessResponse() { Code = "200", Message = "Success" };
+            return Ok(_productEngine.AddProduct(product));
         }
 
         // PUT api/<ProductController>/5
