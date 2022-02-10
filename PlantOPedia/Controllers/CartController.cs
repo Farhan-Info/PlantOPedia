@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PlantOPedia.Data;
+using PlantOPedia.Engine;
 using PlantOPedia.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -11,10 +12,12 @@ namespace PlantOPedia.Controllers
     [ApiController]
     public class CartController : ControllerBase
     {
+        readonly ICartEngine _cartEngine;
         readonly PlantdbContext _context;
-        public CartController(PlantdbContext context)
+        public CartController(PlantdbContext context, ICartEngine cartEngine)
         {
             _context = context;
+            _cartEngine = cartEngine;
         }
         // GET: api/<CartController>
         [HttpGet]
@@ -27,18 +30,14 @@ namespace PlantOPedia.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(Guid id)
         {
-            return Ok(_context.Carts.Include(p => p.Product).ThenInclude(p => p.ProductType).ThenInclude(c => c.Category).
-                        Include(u => u.User).Where(user => user.UserId == id).ToList());
+            return Ok(_cartEngine.CartList(id));
         }
 
         // POST api/<CartController>
         [HttpPost]
         public IActionResult Post([FromBody] Cart cart)
         {
-            _context.Carts.Add(cart);
-            _context.SaveChanges();
-            SuccessResponse successResponse = new SuccessResponse() { Code = "200", Message = "Success" };
-            return Ok(successResponse);
+            return Ok(_cartEngine.AddToCart(cart));
         }
 
         // PUT api/<CartController>/5
@@ -50,12 +49,8 @@ namespace PlantOPedia.Controllers
         // DELETE api/<CartController>/5
         [HttpDelete("{id}")]
         public IActionResult Delete(Guid id)
-        {
-            _context.Carts.Remove(new Cart() { CartId = id});
-            _context.SaveChanges();
-
-            SuccessResponse successResponse = new SuccessResponse() { Code = "200", Message = "Success" };
-            return Ok(successResponse);
+        {            
+            return Ok(_cartEngine.DeleteFromCart(id));
         }
     }
 }
