@@ -20,12 +20,11 @@ builder.Services.AddCors(option =>
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<PlantdbContext>(opts => opts.UseSqlServer(configuration["ConnectionStrings:PlantDB"]));
 builder.Services.AddControllers();
-
 builder.Services.AddTransient<ILoginEngine, LoginEngine>();
 builder.Services.AddTransient<IProductEngine, ProductEngine>();
-
 builder.Services.AddTransient<IOrderEngine, OrderEngine>();
 builder.Services.AddTransient<ICartEngine, CartEngine>();
+builder.Services.AddTransient<IUserEngine, UserEngine>();
 
 
 var app = builder.Build();
