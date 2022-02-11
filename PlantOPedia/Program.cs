@@ -25,6 +25,7 @@ builder.Services.AddTransient<IProductEngine, ProductEngine>();
 builder.Services.AddTransient<IOrderEngine, OrderEngine>();
 builder.Services.AddTransient<ICartEngine, CartEngine>();
 builder.Services.AddTransient<IUserEngine, UserEngine>();
+builder.Services.AddTransient<IProductTypeEngine, ProductTypeEngine>();
 
 
 var app = builder.Build();
