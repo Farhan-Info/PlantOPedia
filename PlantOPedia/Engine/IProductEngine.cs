@@ -7,5 +7,8 @@ namespace PlantOPedia.Engine
         List<Product> GetAllProduct();
         Product GetProduct(Guid id);
         SuccessResponse AddProduct(Product product);
+        SuccessResponse UpdateProduct(Guid id,Product product);
+        /*SuccessResponse UpdateProduct(Product product);*/
+        SuccessResponse DeleteProduct(Guid id);
     }
 }

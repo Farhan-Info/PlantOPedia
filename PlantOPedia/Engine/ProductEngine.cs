@@ -21,7 +21,7 @@ namespace PlantOPedia.Engine
 
         public Product GetProduct(Guid id)
         {
-            var product=(_context.Products.Include(p => p.ProductType).
+            var product = (_context.Products.Include(p => p.ProductType).
                                     ThenInclude(c => c.Category).FirstOrDefault(product => product.ProductId == id && product.IsDeleted == false));
             return product;
         }
@@ -32,6 +32,53 @@ namespace PlantOPedia.Engine
             SuccessResponse successResponse = new SuccessResponse() { Code = "200", Message = "Success" };
             return (successResponse);
         }
-    }
+        /*public SuccessResponse UpdateProduct(Guid id, Product product)
+        {
+            var exists = _context.Products.AsNoTracking().FirstOrDefault(product => product.ProductId == id && product.IsDeleted == false);
+            if (exists != null)
+            {
+                _context.Products.Update(product);
+                _context.SaveChanges();
+            }
+            else
+            {
+                throw new BadHttpRequestException("Not Found", 400);
+            }
+            SuccessResponse successResponse = new SuccessResponse() { Code = "200", Message = "Success" };
+            return (successResponse);
+        }*/
+        public SuccessResponse DeleteProduct(Guid id)
+        {
+            var exists = _context.Products.Find(id);
+            if (exists != null)
+            {
+                exists.IsDeleted = true;
+                _context.Products.Update(exists);
+                _context.SaveChanges();
+            }
+            else
+            {
+                throw new BadHttpRequestException("Not Found", 400);
+            }
+            SuccessResponse successResponse = new SuccessResponse() { Code = "200", Message = "Success" };
+            return (successResponse);
+        }
 
+        public SuccessResponse UpdateProduct( Guid id,Product product)
+        {
+            var exists = _context.Products.AsNoTracking().FirstOrDefault(product => product.ProductId == id && product.IsDeleted == false);
+            if (exists != null)
+            {
+                _context.Products.Update(product);
+                _context.SaveChanges();
+            }
+            else
+            {
+                throw new BadHttpRequestException("Not Found", 400);
+            }
+            SuccessResponse successResponse = new SuccessResponse() { Code = "200", Message = "Success" };
+            return (successResponse);
+        }
+    }
+    
 }

@@ -18,21 +18,20 @@ namespace PlantOPedia.Controllers
         {
             _context = context;
             _productEngine = productEngine;
-            _productEngine = productEngine;
         }
         // GET: api/<ProductController>
         [HttpGet]
         public IActionResult GetAll()
         {
             return Ok(_productEngine.GetAllProduct());
-        }                         
+        }
 
         // GET api/<ProductController>/5
         [HttpGet("{id}")]
         public IActionResult Get(Guid id)
         {
-            return Ok(_productEngine.GetProduct(id)); 
-                
+            return Ok(_productEngine.GetProduct(id));
+
         }
 
         // POST api/<ProductController>
@@ -51,19 +50,20 @@ namespace PlantOPedia.Controllers
         {
             //var Productexists = _context.Products.FirstOrDefault(p => p.ProductId.Equals(id));
 
-            var exists = _context.Products.AsNoTracking().FirstOrDefault(product => product.ProductId == id && product.IsDeleted == false);
+            /*var exists = _context.Products.AsNoTracking().FirstOrDefault(product => product.ProductId == id && product.IsDeleted == false);
             if(exists != null)
             {
                 _context.Products.Update(product);
                 _context.SaveChanges();
 
-                SuccessResponse successResponse = new SuccessResponse() { Code = "200", Message = "Success" };
-                return Ok(successResponse);
-            }
+                SuccessResponse successResponse = new SuccessResponse() { Code = "200", Message = "Success" };*/
+            /*  return Ok(_productEngine.UpdateProduct(product));
+          }
 
-            ErrorResponse errorResponse = new ErrorResponse() { Code = "404", Message = "Not Found" };
-            return NotFound(errorResponse);
-
+          ErrorResponse errorResponse = new ErrorResponse() { Code = "404", Message = "Not Found" };
+          return NotFound(errorResponse);
+*/
+            return Ok(_productEngine.UpdateProduct(product));
         }
 
         // DELETE api/<ProductController>/5
@@ -71,7 +71,7 @@ namespace PlantOPedia.Controllers
         public IActionResult Delete(Guid id)
         {
             //Soft Delete
-            var exists = _context.Products.Find(id);
+            /*var exists = _context.Products.Find(id);
             if (exists != null)
         {
                 exists.IsDeleted = true;
@@ -87,6 +87,8 @@ namespace PlantOPedia.Controllers
                 return NotFound(errorResponse);
             }
 
+        }*/
+            return Ok(_productEngine.DeleteProduct(id));
         }
     }
 }
