@@ -63,7 +63,7 @@ namespace PlantOPedia.Controllers
           ErrorResponse errorResponse = new ErrorResponse() { Code = "404", Message = "Not Found" };
           return NotFound(errorResponse);
 */
-            return Ok(_productEngine.UpdateProduct(product));
+            return Ok(_productEngine.UpdateProduct(id, product));
         }
 
         // DELETE api/<ProductController>/5

@@ -4,8 +4,8 @@ namespace PlantOPedia.Engine
 {
     public interface IProductEngine
     {
-        List<Product> GetAllProduct();
-        Product GetProduct(Guid id);
+        List<Models.Response.Product> GetAllProduct();
+        Models.Response.ProductDetail GetProduct(Guid id);
         SuccessResponse AddProduct(Product product);
         SuccessResponse UpdateProduct(Guid id,Product product);
         /*SuccessResponse UpdateProduct(Product product);*/

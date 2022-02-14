@@ -4,6 +4,6 @@ namespace PlantOPedia.Engine
 {
     public interface ILoginEngine
     {
-        Users CheckUser(LoginCredentials user);
+        Models.Response.Login CheckUser(Models.Request.Login user);
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using PlantOPedia.Data;
 using PlantOPedia.Models;
 
@@ -6,24 +7,26 @@ namespace PlantOPedia.Engine
 {
     public class ProductEngine : IProductEngine
     {
+        private readonly IMapper _mapper;
         readonly PlantdbContext _context;
-        public ProductEngine(PlantdbContext context)
+        public ProductEngine(PlantdbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
-        public List<Product> GetAllProduct()
+        public List<Models.Response.Product> GetAllProduct()
         {
             var pro = (_context.Products.Include(p => p.ProductType).
                                     ThenInclude(c => c.Category).Where(product => product.IsDeleted == false).ToList());
-            return pro;
+            return _mapper.Map<List<Models.Response.Product>>(pro);
         }
 
-        public Product GetProduct(Guid id)
+        public Models.Response.ProductDetail GetProduct(Guid id)
         {
             var product = (_context.Products.Include(p => p.ProductType).
                                     ThenInclude(c => c.Category).FirstOrDefault(product => product.ProductId == id && product.IsDeleted == false));
-            return product;
+            return _mapper.Map<Models.Response.ProductDetail>(product);
         }
         public SuccessResponse AddProduct(Product product)
         {

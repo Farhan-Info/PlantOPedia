@@ -40,7 +40,7 @@ namespace PlantOPedia.Controllers
         
         // POST api/<LoginController>
         [HttpPost]
-        public ActionResult Post([FromBody] LoginCredentials  login)
+        public ActionResult Post([FromBody] Models.Request.Login  login)
         {
             //var pass = login.password;
             //const string salt = "cgyzqen4plzeknc88umm1q==";

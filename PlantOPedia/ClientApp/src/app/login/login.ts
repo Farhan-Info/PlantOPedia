@@ -6,5 +6,5 @@ export interface IUser {
   mobileNo: string;
   password: string;
   roleId: string;
-  role: {roleType: string};
+  roleType: string;
 }

@@ -4,18 +4,22 @@ using Microsoft.EntityFrameworkCore;
 using PlantOPedia.Data;
 using PlantOPedia.Models;
 using System.Text;
+using AutoMapper;
+
 
 namespace PlantOPedia.Engine
 {
     public class LoginEngine : ILoginEngine
     {
         readonly PlantdbContext _context;
-        public LoginEngine(PlantdbContext context)
+        private readonly IMapper _mapper;
+        public LoginEngine(PlantdbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
-        public Users CheckUser(LoginCredentials userobj)
+        public Models.Response.Login CheckUser(Models.Request.Login userobj)
         {
 
             var pass = userobj.Password;
@@ -35,7 +39,7 @@ namespace PlantOPedia.Engine
             {
                 throw new BadHttpRequestException("Not Found", 400);
             }
-            return FindUser;
+            return _mapper.Map<Models.Response.Login>(FindUser);
         }
     }
 }

@@ -1,6 +1,9 @@
 using Microsoft.EntityFrameworkCore;
+using PlantOPedia.AutoMapper;
 using PlantOPedia.Data;
+using Microsoft.Extensions.DependencyInjection;
 using PlantOPedia.Engine;
+
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -26,6 +29,8 @@ builder.Services.AddTransient<IOrderEngine, OrderEngine>();
 builder.Services.AddTransient<ICartEngine, CartEngine>();
 builder.Services.AddTransient<IUserEngine, UserEngine>();
 builder.Services.AddTransient<IProductTypeEngine, ProductTypeEngine>();
+
+builder.Services.AddAutoMapper(typeof(Auto_Mapper));
 
 
 var app = builder.Build();

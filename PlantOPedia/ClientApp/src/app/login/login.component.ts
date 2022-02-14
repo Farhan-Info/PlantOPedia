@@ -75,10 +75,11 @@ export class LoginComponent implements OnInit {
     return localStorage.getItem('userId');
   }
 
-  setLoggedInUser(user: any): void {
+  
+  setLoggedInUser(user: IUser): void {
     localStorage.setItem('userId', user.userId );
     localStorage.setItem('userName', user.name);
-    localStorage.setItem('roleType', user.role.roleType);
+    localStorage.setItem('roleType', JSON.stringify(user.roleType));
     // this.router.navigate(['']);
   }
 
