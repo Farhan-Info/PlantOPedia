@@ -10,10 +10,10 @@ import { CartService } from './cart.service';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
-  uId: any;
+  uId!: string | null;
   cartresponse!: Array<any>;
   cartDelete!: string;
-  totalcost: any = 0;
+  totalcost: number = 0;
   totalItems: number = 0;
 
 
@@ -25,6 +25,7 @@ export class CartComponent implements OnInit {
     this.cartService.getCartProductById(this.uId).subscribe({
       next: cartresponse => {
         this.cartresponse = cartresponse;
+        console.log(this.cartresponse);
         this.totalPrice();
       }
     })
