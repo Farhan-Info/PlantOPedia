@@ -46,7 +46,7 @@ namespace PlantOPedia.Controllers
 
         // POST api/<OrderController>
         [HttpPost]
-        public IActionResult Post([FromBody] List<Order> orders)
+        public IActionResult Post([FromBody] List<Models.Request.Order> orders)
         {
             //foreach (var order in orders)
             //{

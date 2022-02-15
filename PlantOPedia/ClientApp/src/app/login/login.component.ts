@@ -79,7 +79,7 @@ export class LoginComponent implements OnInit {
   setLoggedInUser(user: IUser): void {
     localStorage.setItem('userId', user.userId );
     localStorage.setItem('userName', user.name);
-    localStorage.setItem('roleType', JSON.stringify(user.roleType));
+    localStorage.setItem('roleType',user.roleType);
     // this.router.navigate(['']);
   }
 
