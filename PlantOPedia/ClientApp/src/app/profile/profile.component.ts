@@ -21,6 +21,8 @@ export class ProfileComponent implements OnInit {
   deleteResponse! : string;
   childcomponent: string = "profile";
   upresponce!: any;
+  roleType!:string |null;
+  roleFlag!: boolean;
 
   constructor(private profileService: ProfileService,
               private loginService: LoginService,
@@ -33,6 +35,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.initilizeformgroup();
+
 
     this.uid = this.loginService.getLoggedInUser();
     this.profileService.getUserDetail(this.uid).subscribe({
@@ -50,6 +53,7 @@ export class ProfileComponent implements OnInit {
         })
 
       }
+      
     });  
 
     this.initilizeformgroup();
@@ -63,6 +67,13 @@ export class ProfileComponent implements OnInit {
       }
     });  
 
+    this.roleType = this.loginService.getLoggedInUserType(); 
+    if(this.roleType == 'Admin'){
+        this.roleFlag = true;
+    }
+    else {
+        this.roleFlag = false;
+    }
   
   }
 

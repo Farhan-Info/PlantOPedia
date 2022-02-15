@@ -36,7 +36,7 @@ namespace PlantOPedia.Controllers
 
         // POST api/<ProductController>
         [HttpPost]
-        public IActionResult Post([FromBody] Product product)
+        public IActionResult Post([FromBody] Models.Request.Product product)
         {
             //_context.Products.Add(product);
             //_context.SaveChanges();
@@ -46,7 +46,7 @@ namespace PlantOPedia.Controllers
 
         // PUT api/<ProductController>/5
         [HttpPut("{id}")]
-        public IActionResult Put(Guid id, [FromBody] Product product)
+        public IActionResult Put(Guid id, [FromBody] Models.Request.Product product)
         {
             //var Productexists = _context.Products.FirstOrDefault(p => p.ProductId.Equals(id));
 

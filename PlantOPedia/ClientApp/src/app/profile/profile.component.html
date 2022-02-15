@@ -16,7 +16,7 @@
                     <li>
                         <p (click)="childToggle('profile')"> <i class="fa fa-user"></i> Profile</p>
                     </li>
-                    <li>
+                    <li *ngIf="!roleFlag">
                         <p (click)="childToggle('order')"> <i class="fa fa-calendar"></i> My Orders</p>
                     </li>
                     <li>

@@ -9,10 +9,10 @@ import { LoginService } from '../login/login.service';
 })
 export class NavMenuComponent implements OnInit {
   isExpanded = false;
-  loggedIn : any;
+  loggedIn! : boolean;
   roleType!:string |null;
   roleFlag!: boolean;
-  uName: any;
+  uName!: string | null;
 
   constructor (private loginService : LoginService,
                 private router : Router){}

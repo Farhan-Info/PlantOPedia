@@ -21,10 +21,10 @@ export class AddOrderComponent implements OnInit {
   dateVal = new Date(Date.now());
   
   pipe = new DatePipe('en-US');
-  orderresponse: any;
   product!: IProduct; 
-  uId: any;
-  uName: any;
+  uId!: string | null;
+  uName!: string | null;
+  orderresponse: any;
   array: IOrder[] = [];
   
 

@@ -16,7 +16,6 @@ namespace PlantOPedia.Controllers
         {
             _context = context;
             _productTypeEngine = productTypeEngine;
-            Console.WriteLine("Ptype");
         }
         // GET: api/<ProductController>
         [HttpGet]

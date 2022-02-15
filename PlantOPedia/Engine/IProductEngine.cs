@@ -6,8 +6,8 @@ namespace PlantOPedia.Engine
     {
         List<Models.Response.Product> GetAllProduct();
         Models.Response.ProductDetail GetProduct(Guid id);
-        SuccessResponse AddProduct(Product product);
-        SuccessResponse UpdateProduct(Guid id,Product product);
+        SuccessResponse AddProduct(Models.Request.Product product);
+        SuccessResponse UpdateProduct(Guid id, Models.Request.Product product);
         /*SuccessResponse UpdateProduct(Product product);*/
         SuccessResponse DeleteProduct(Guid id);
     }

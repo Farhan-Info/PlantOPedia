@@ -4,6 +4,6 @@ namespace PlantOPedia.Engine
 {
     public interface IProductTypeEngine
     {
-        List<ProductType> GetPlantType();
+        List<Models.Response.ProductType> GetPlantType();
     }
 }

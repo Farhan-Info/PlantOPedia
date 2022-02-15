@@ -28,19 +28,21 @@ namespace PlantOPedia.Engine
                                     ThenInclude(c => c.Category).FirstOrDefault(product => product.ProductId == id && product.IsDeleted == false));
             return _mapper.Map<Models.Response.ProductDetail>(product);
         }
-        public SuccessResponse AddProduct(Product product)
+        public SuccessResponse AddProduct(Models.Request.Product product)
         {
-            _context.Products.Add(product);
+            var pro = _mapper.Map<Models.Product>(product);
+            _context.Products.Add(pro);
             _context.SaveChanges();
             SuccessResponse successResponse = new SuccessResponse() { Code = "200", Message = "Success" };
             return (successResponse);
         }
-        /*public SuccessResponse UpdateProduct(Guid id, Product product)
+        public SuccessResponse UpdateProduct(Guid id, Models.Request.Product product)
         {
+            var uproduct = _mapper.Map<Models.Product>(product);
             var exists = _context.Products.AsNoTracking().FirstOrDefault(product => product.ProductId == id && product.IsDeleted == false);
             if (exists != null)
             {
-                _context.Products.Update(product);
+                _context.Products.Update(uproduct);
                 _context.SaveChanges();
             }
             else
@@ -49,7 +51,7 @@ namespace PlantOPedia.Engine
             }
             SuccessResponse successResponse = new SuccessResponse() { Code = "200", Message = "Success" };
             return (successResponse);
-        }*/
+        }
         public SuccessResponse DeleteProduct(Guid id)
         {
             var exists = _context.Products.Find(id);
