@@ -39,7 +39,7 @@ namespace PlantOPedia.Controllers
 
         // POST api/<UserController>
         [HttpPost]
-        public IActionResult Post([FromBody] Users user)
+        public IActionResult Post([FromBody] Models.Request.User user)
         {
             //const string Salt = "CGYzqeN4plZekNC88Umm1Q==";
             //byte[] bytesSalt = Encoding.ASCII.GetBytes(Salt);
@@ -60,7 +60,7 @@ namespace PlantOPedia.Controllers
 
         // PUT api/<UserController>/5
         [HttpPut("{id}")]
-        public IActionResult Put(Guid id, [FromBody] Users user)
+        public IActionResult Put(Guid id, [FromBody] Models.Request.User user)
         {
             //var exists = _context.Users.AsNoTracking().FirstOrDefault(user => user.UserId == id && user.IsDeleted == false);
             //if (exists != null)

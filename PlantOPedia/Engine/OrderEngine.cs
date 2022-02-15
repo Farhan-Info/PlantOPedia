@@ -30,7 +30,7 @@ namespace PlantOPedia.Engine
             {
                 order.OrderDate = order.OrderDate.ToLocalTime();
             }
-            var ord = _mapper.Map<Models.Order>(orders);
+            var ord = _mapper.Map<List<Models.Order>>(orders);
             _context.Orders.AddRange(ord);
             _context.SaveChanges();
             SuccessResponse successResponse = new SuccessResponse() { Code = "200", Message = "Success" };
