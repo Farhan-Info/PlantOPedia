@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { ApiRootConfig } from "../apiconfig/apiconfig";
 import { IUser } from "../login/login";
 
 @Injectable({
@@ -10,9 +11,12 @@ import { IUser } from "../login/login";
 export class ProfileService {
 
 
-    private userUrl = "https://localhost:7258/api/user";
+    private userUrl:string = " ";
     
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient,
+                config:ApiRootConfig) {
+                    this.userUrl = config.rootUrl + '/api/user';
+                }
 
 
     getUserDetail(uid : any ) : Observable<IUser> {

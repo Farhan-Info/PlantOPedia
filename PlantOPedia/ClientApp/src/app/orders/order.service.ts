@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { ApiRootConfig } from "../apiconfig/apiconfig";
 import { IOrder } from "./order";
 
 @Injectable({
@@ -8,8 +9,11 @@ import { IOrder } from "./order";
 })
 export class Orderservice_api {
 
-  private orderUrl = "https://localhost:7258/api/order";
-  constructor(private http: HttpClient) { }
+  private orderUrl:string = " ";
+  constructor(private http: HttpClient,
+               config: ApiRootConfig) {
+                this.orderUrl = config.rootUrl + '/api/order';
+                }
 
   getOrders(): Observable<IOrder[]> {
     return this.http.get<IOrder[]>(this.orderUrl)

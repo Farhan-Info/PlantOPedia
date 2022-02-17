@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ApiRootConfig } from '../apiconfig/apiconfig';
 import { IOrder } from '../orders/order';
 import { Orderservice_api } from '../orders/order.service';
 import { SuccessEnum } from '../Shared/models';
@@ -14,10 +15,13 @@ export class CartService {
   orderresponse!: any;
   cartDelete!: string;
 
-  private cartUrl = 'https://localhost:7258/api/cart';
+  private cartUrl: string = '';
 
   constructor(private http: HttpClient,
-    private orederService: Orderservice_api) { }
+    private orederService: Orderservice_api,
+    config: ApiRootConfig) {
+      this.cartUrl = config.rootUrl + '/api/cart';
+     }
 
 
   getCartProductById(uid: any): Observable<Array<any>> {

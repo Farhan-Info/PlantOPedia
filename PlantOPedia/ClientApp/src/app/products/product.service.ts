@@ -1,6 +1,7 @@
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, throwError } from "rxjs";
+import { ApiRootConfig } from "../apiconfig/apiconfig";
 import { IProduct } from "./product";
 
 @Injectable({
@@ -9,10 +10,14 @@ import { IProduct } from "./product";
 export class ProductService{
    
     
-  private productUrl = 'https://localhost:7258/api/product';
-  private productTypeUrl = 'https://localhost:7258/api/productType';
+  private productUrl:string = '';
+  private productTypeUrl: string = '';
 
-  constructor(private http:HttpClient){}
+  constructor(private http:HttpClient,
+              config: ApiRootConfig){
+                this.productUrl = config.rootUrl + '/api/product';
+                this.productTypeUrl = config.rootUrl + '/api/productType';
+              }
 
     getProducts() : Observable <IProduct[]> {
         return this.http.get<IProduct[]>(this.productUrl);

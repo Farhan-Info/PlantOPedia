@@ -23,6 +23,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { CurrencyPipe } from '@angular/common';
 import { SignupComponent } from './signup/signup.component';
 import { CartComponent } from './cart/cart.component';
+import { ApiRootConfig, GenerateApiRootConfig } from './apiconfig/apiconfig';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,7 @@ import { CartComponent } from './cart/cart.component';
       {path: 'cart', component: CartComponent, canActivate:[AuthGuard]}
     ])
   ],
-  providers: [AuthGuard,CanDeactivateGuard, CurrencyPipe],
+  providers: [AuthGuard,CanDeactivateGuard, CurrencyPipe, {provide:ApiRootConfig, useClass: GenerateApiRootConfig }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
