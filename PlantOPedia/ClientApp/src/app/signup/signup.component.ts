@@ -28,7 +28,7 @@ export class SignupComponent implements OnInit {
       address: [undefined, [Validators.required]],
       mobileNo: [undefined, [Validators.required]],
       password: [undefined, [Validators.required]],
-      roleId: '77991dec-f5e8-4717-9e51-8d5487e1f952'
+      roleId: 'C54DBF56-F8C9-4063-873F-9BD3DEFDEE0E'
     })
 
   }
